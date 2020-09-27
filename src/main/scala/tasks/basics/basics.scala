@@ -2,9 +2,7 @@ package tasks.basics
 import java.util.Scanner
 
 object basics {
-  def main(args: Array[String]): Unit = {
-
-  }
+  def main(args: Array[String]): Unit = {}
 
   /** Returns Greatest Common Divisor of two integers.
    * Input can be negative (but not (0 0 _), nevertheless positive value will be returned.
