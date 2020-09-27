@@ -1,5 +1,4 @@
 package tasks.basics
-import java.io.ByteArrayInputStream
 import java.util.Scanner
 
 object basics {
@@ -52,10 +51,9 @@ object basics {
       case e: IllegalArgumentException => "Error! Invalid input, can't be (0 _ _) for lcm and (0 0 _) for gcd"
     }
   }
-//  while (true) {
-//    println(combined)
-//  }
-  System.setIn(new ByteArrayInputStream("0 1 gcm".getBytes))
-  println(combined)
+  while (true) {
+    println(combined)
+  }
+
 }
 

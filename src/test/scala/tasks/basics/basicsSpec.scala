@@ -45,7 +45,7 @@ class basicsSpec extends AnyFlatSpec with ScalaCheckDrivenPropertyChecks{
     combined shouldEqual  "Error! Invalid input, must be (Int Int String)"
 
     System.setIn(new ByteArrayInputStream("0 0 lcm".getBytes))
-    combined shouldEqual  "Error! Invalid input, can't be (0 0 _)"
+    combined shouldEqual  "Error! Invalid input, can't be (0 _ _) for lcm and (0 0 _) for gcd"
 
   }
 
