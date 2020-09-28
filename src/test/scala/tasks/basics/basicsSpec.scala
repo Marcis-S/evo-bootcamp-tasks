@@ -13,15 +13,15 @@ class basicsSpec extends AnyFlatSpec with ScalaCheckDrivenPropertyChecks{
   "gcd" should "Get greatest common deliminator of two integers" in {
     gcd(2, 3) shouldEqual 1
     gcd(6, -3) shouldEqual 3
-    gcd(-8, -2) shouldEqual 2
-    assertThrows[IllegalArgumentException] {gcd(0,0)}
+    gcd(-8, -2) shouldEqual 4
+    gcd(0, 0) shouldEqual None
   }
 
   "lcm" should "Get lowest common multiple" in {
     lcm(3, 5) shouldEqual 15
     lcm(-3, 5) shouldEqual 15
     lcm(-8, -6) shouldEqual 24
-    assertThrows[IllegalArgumentException] {lcm(0,0)}
+    lcm(0, 0) shouldEqual None
   }
   "combined" should "Get lcm or gcd" in {
     System.setIn(new ByteArrayInputStream("1 2 lcm".getBytes))
@@ -45,7 +45,10 @@ class basicsSpec extends AnyFlatSpec with ScalaCheckDrivenPropertyChecks{
     combined shouldEqual  "Error! Invalid input, must be (Int Int String)"
 
     System.setIn(new ByteArrayInputStream("0 0 lcm".getBytes))
-    combined shouldEqual  "Error! Invalid input, can't be (0 _ _) for lcm and (0 0 _) for gcd"
+    combined shouldEqual  "Error! Invalid input, can't be (0 _ _) for lcm"
+
+    System.setIn(new ByteArrayInputStream("0 0 gcd".getBytes))
+    combined shouldEqual  "Error! Invalid input, can't be (0 0 _) for gcd"
 
   }
 
