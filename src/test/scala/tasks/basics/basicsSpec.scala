@@ -5,22 +5,20 @@ import org.scalatest.matchers.should.Matchers._
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import flatspec._
 
-import basics._
-
+import basics.{gcd, lcm, combined}
 
 class basicsSpec extends AnyFlatSpec with ScalaCheckDrivenPropertyChecks{
 
   "gcd" should "Get greatest common deliminator of two integers" in {
-    gcd(2, 3) shouldEqual 1
-    gcd(6, -3) shouldEqual 3
-    gcd(-8, -2) shouldEqual 4
+    gcd(6, -3) shouldEqual Some(3)
+    gcd(-8, -2) shouldEqual Some(2)
     gcd(0, 0) shouldEqual None
   }
 
   "lcm" should "Get lowest common multiple" in {
-    lcm(3, 5) shouldEqual 15
-    lcm(-3, 5) shouldEqual 15
-    lcm(-8, -6) shouldEqual 24
+    lcm(3, 5) shouldEqual Some(15)
+    lcm(-3, 5) shouldEqual Some(15)
+    lcm(-8, -6) shouldEqual Some(24)
     lcm(0, 0) shouldEqual None
   }
   "combined" should "Get lcm or gcd" in {

@@ -12,8 +12,6 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
 class ClassesAndTraitsSpec extends AnyFlatSpec with ScalaCheckDrivenPropertyChecks{
-  "gcd" should "Get greatest common deliminator of two integers" in {
-    1 shouldEqual 1
-  }
+
 
 }
