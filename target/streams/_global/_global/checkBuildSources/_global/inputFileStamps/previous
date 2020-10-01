@@ -1,1 +1,1 @@
-["sbt.Task[scala.collection.Seq[scala.Tuple2[java.nio.file.Path, sbt.nio.FileStamp]]]",{"hashes":[["/home/marcis/IdeaProjects/evo_bootcamp_tasks/build.sbt","44ea45bd8c69728f6647b80e6fe9c9ae20f986df"]],"lastModifiedTimes":[]}]
+["sbt.Task[scala.collection.Seq[scala.Tuple2[java.nio.file.Path, sbt.nio.FileStamp]]]",{"hashes":[["/home/marcis/IdeaProjects/evo_bootcamp_tasks/build.sbt","356a9816a95de871ff48cf1e391af02efa25e01e"]],"lastModifiedTimes":[]}]

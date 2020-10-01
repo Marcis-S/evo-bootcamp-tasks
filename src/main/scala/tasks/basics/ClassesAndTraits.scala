@@ -1,10 +1,8 @@
 package tasks.basics
 
-object ClassesAndTraits extends App {
+import java.lang.Math.{sin, sqrt, tan, PI}
 
-  def tan(x: Double): Double = java.lang.Math.tan(x)
-  def sin(x: Double): Double = java.lang.Math.sin(x)
-  val Pi: Double = java.lang.Math.PI
+object ClassesAndTraits extends App {
 
   sealed trait Located {
     def x: Double
@@ -26,14 +24,14 @@ object ClassesAndTraits extends App {
     def z: Double
     def minZ: Double
     def maxZ: Double
-    def surface_area: Double
+    def surfaceArea: Double
     def volume: Double
     def move(dx: Double, dy: Double, dz: Double): A
   }
 
   sealed trait Sided {
-    def side_len: Double
-    def sides: Int
+    def sideLen: Double
+    def sideCount: Int
   }
 
   final case class Point(x: Double, y: Double) extends Shape1D[Point] {
@@ -46,6 +44,7 @@ object ClassesAndTraits extends App {
 
   final case class Circle(centerX: Double, centerY: Double, radius: Double)
       extends Shape2D[Circle] {
+
     override def x: Double = centerX
     override def y: Double = centerY
     override def minX: Double = x - radius
@@ -53,7 +52,7 @@ object ClassesAndTraits extends App {
     override def minY: Double = y - radius
     override def maxY: Double = y + radius
     override def move(dx: Double, dy: Double): Circle = Circle(x + dx, y + dy, radius)
-    override def area: Double = Pi * radius * radius
+    override def area: Double = PI * radius * radius
   }
 
   final case class Rectangle(cx: Double, cy: Double, side1: Double, side2: Double)
@@ -82,41 +81,49 @@ object ClassesAndTraits extends App {
 
     override def area: Double = {
       val S = (side1 + side2 + side3) / 2
-      math.sqrt(S * (S - side1) * (S - side2) * (S - side3))
+      sqrt(S * (S - side1) * (S - side2) * (S - side3))
     }
   }
 
+  /**
+    *For any regular polygon
+    */
   final case class Polygon(cx: Double, cy: Double, n: Int, s: Double)
       extends Shape2D[Polygon]
       with Sided {
-    def sides: Int = n
-    override def side_len: Double = s
-    def Rc: Double = cy - s / (2 * sin(Pi / n))
-    def Ri: Double = cy - s / (2 * tan(Pi / n))
+    override def sideCount: Int = n
+    override def sideLen: Double = s
+    def rc: Double = cy - s / (2 * sin(PI / n))
+    def ri: Double = cy - s / (2 * tan(PI / n))
 
     def w: Double = {
-      if (n % 2 % 2 == 0) Ri
-      else if (n % 2 == 0 && n % 2 % 2 != 0) Rc
-      else Rc * sin((n - 1) * Pi / (2 * n))
+      if (n % 2 % 2 == 0) ri
+      else if (n % 2 == 0 && n % 2 % 2 != 0) rc
+      else rc * sin((n - 1) * PI / (2 * n))
     }
     override def x: Double = cx
     override def y: Double = cy
     override def minX: Double = cx - w
     override def maxX: Double = cx + w
-    override def minY: Double = cy + Ri
-    override def maxY: Double = cy + { if (n % 2 == 0) Ri else Rc }
-    override def move(dx: Double, dy: Double): Polygon = Polygon(cx + dx, cy + dy, sides, side_len)
+    override def minY: Double = cy + ri
+    override def maxY: Double = cy + { if (n % 2 == 0) ri else rc }
+
+    override def move(dx: Double, dy: Double): Polygon =
+      Polygon(cx + dx, cy + dy, sideCount, sideLen)
     override def area: Double = s * n * (s / 2 * tan(180 / n)) / 2
 
   }
 
+  /**
+    *For any regular pyramid
+    */
   final case class Pyramid(cx: Double, cy: Double, cz: Double, n: Int, s: Double, h: Double)
       extends Shape3D[Pyramid]
       with Sided {
-    def sides: Int = n
-    override def side_len: Double = s
+    override def sideCount: Int = n
+    override def sideLen: Double = s
     def height: Double = h
-    def base: Polygon = Polygon(x, y, sides, side_len)
+    def base: Polygon = Polygon(x, y, sideCount, sideLen)
     override def x: Double = cx
     override def y: Double = cy
     override def z: Double = cz
@@ -128,8 +135,8 @@ object ClassesAndTraits extends App {
     override def maxZ: Double = z + height
 
     override def move(dx: Double, dy: Double, dz: Double): Pyramid =
-      Pyramid(cx + dx, cy + dy, cz + dz, sides, side_len, height)
-    override def surface_area: Double = sides * side_len * height / 2 + base.area
+      Pyramid(cx + dx, cy + dy, cz + dz, sideCount, sideLen, height)
+    override def surfaceArea: Double = sideCount * sideLen * height / 2 + base.area
     override def volume: Double = 1 / 3 * base.area * height
 
   }
@@ -148,10 +155,9 @@ object ClassesAndTraits extends App {
 
     override def move(dx: Double, dy: Double, dz: Double): Sphere =
       Sphere(x + dx, y + dy, z + dz, radius)
-    override def surface_area: Double = 4 * Pi * radius * radius
-    override def volume: Double = 4 / 3 * Pi * radius * radius * radius
+    override def surfaceArea: Double = 4 * PI * radius * radius
+    override def volume: Double = 4 / 3 * PI * radius * radius * radius
 
   }
 
-//https://www.artima.com/pins1ed/type-parameterization.html
 }
