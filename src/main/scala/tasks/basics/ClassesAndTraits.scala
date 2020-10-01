@@ -2,6 +2,10 @@ package tasks.basics
 
 import java.lang.Math.{sin, sqrt, tan, PI}
 
+/**
+  * Testing in 'main/test/scala/ClassesAndTraitsSpec'
+  */
+
 object ClassesAndTraits extends App {
 
   sealed trait Located {
