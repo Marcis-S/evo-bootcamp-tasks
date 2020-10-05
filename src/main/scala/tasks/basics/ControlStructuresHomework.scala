@@ -6,6 +6,10 @@ import scala.util.Try
 
 object ControlStructuresHomework {
 
+  /**
+    * Unit tests in src/test/scala/ControlStructuresHomeworkSpec
+    */
+
   sealed trait Command {
     def res: Either[ErrorMessage, Result]
     def function: String
