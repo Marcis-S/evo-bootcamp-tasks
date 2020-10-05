@@ -1,34 +1,10 @@
 package tasks.basics
 
 import scala.io.Source
-//import cats.implicits._
-import scala.util.{Failure, Success, Try}
+
+import scala.util.Try
 
 object ControlStructuresHomework {
-  // Homework
-
-  // Create a command line application that reads various "commands" from the
-  // stdin, evaluates them, and writes output to stdout.
-
-  // Commands are:
-
-  //   divide 4 5
-  // which should output "4 divided by 5 is 0.8"
-
-  //   sum 5 5 6 8.5
-  // which should output "the sum of 5 5 6 8.5 is 24.5"
-
-  //   average 4 3 8.5 4
-  // which should output "the average of 4 3 8.5 4 is 4.875"
-
-  //   min 4 -3 -17
-  // which should output "the minimum of 4 -3 -17 is -17"
-
-  //   max 4 -3 -17
-  // which should output "the maximum of 4 -3 -17 is 4"
-
-  // In case of commands that cannot be parsed or calculations that cannot be performed,
-  // output a single line starting with "Error: "
 
   sealed trait Command {
     def res: Either[ErrorMessage, Result]
@@ -42,7 +18,7 @@ object ControlStructuresHomework {
 
       override def res: Either[ErrorMessage, Result] =
         (dividend, divisor) match {
-          case (_, 0) => Left(ErrorMessage("Cant divide by 0"))
+          case (_, 0) => Left(ErrorMessage("Can't divide by 0"))
           case _      => Right(Result(function, List(dividend, divisor), dividend / divisor))
         }
     }
@@ -69,14 +45,14 @@ object ControlStructuresHomework {
     }
 
     final case class Max(numbers: List[Double]) extends Command {
-      override def function: String = "maxinum"
+      override def function: String = "maximum"
 
       override def res: Either[ErrorMessage, Result] =
         Right(Result(function, numbers, numbers.max))
     }
   }
 
-  final case class ErrorMessage(value: String)
+  final case class ErrorMessage(value: String) { def message: String = f"Error: ${value}" }
   final case class Result(method: String, input: List[Double], value: Double)
 
   def parseCommand(x: String): Either[ErrorMessage, Command] = {
@@ -92,7 +68,7 @@ object ControlStructuresHomework {
         case "average"                       => Right(Command.Average(numbers))
         case "min"                           => Right(Command.Min(numbers))
         case "max"                           => Right(Command.Max(numbers))
-        case _                               => Left(ErrorMessage("Invalid method"))
+        case _                               => Left(ErrorMessage("Invalid input"))
       }
     } else { Left(ErrorMessage("No numbers provided")) }
 
@@ -118,7 +94,7 @@ object ControlStructuresHomework {
 
     result match {
       case Right(res) => renderResult(res)
-      case Left(err)  => f"Error: ${err.value}"
+      case Left(err)  => err.message
     }
   }
 
