@@ -9,8 +9,6 @@ import DataStructures._
 
 class DataStructureSpec extends AnyFlatSpec with ScalaCheckDrivenPropertyChecks {
 
-//sortConsideringEqualValues()
-
   "sortConsideringEqualValues" should "return sorted list of tuples(Set[T], Int)" in {
     sortConsideringEqualValues(
       Map("a" -> 1, "b" -> 2, "c" -> 4, "d" -> 1, "e" -> 0, "f" -> 2, "g" -> 2)
