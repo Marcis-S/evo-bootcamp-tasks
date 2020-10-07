@@ -30,4 +30,6 @@ object DataStructures {
       .sortBy(_._2)
   }
 
+//  http://like-a-boss.net/2012/07/30/ordering-and-ordered-in-scala.html
+
 }
