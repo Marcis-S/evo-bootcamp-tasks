@@ -24,10 +24,10 @@ object DataStructures {
     map: Map[T, Int]
   )(implicit ordering: Ordering[T]): List[(Set[T], Int)] = {
     map
-      .groupBy(_._2)
-      .map(x => x._2.map(_._1).toSeq.sorted.toSet -> x._1)
+      .groupBy({ case (_, value) => value })
+      .map({ case (value, keyValueList) => keyValueList.map(_._1).toSeq.sorted.toSet -> value })
       .toList
-      .sortBy(_._2)
+      .sortBy({ case (_, value) => value })
   }
 
 //  http://like-a-boss.net/2012/07/30/ordering-and-ordered-in-scala.html
