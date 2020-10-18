@@ -91,5 +91,6 @@ object AlgebraicDataTypes {
     case class Pair private (cards: Set[Card], score: Long) extends Combinations
     case class HighCard private (cards: Set[Card], score: Long) extends Combinations
   }
+  var k = Card(Suit('c'), Rank(14))
 
 }
