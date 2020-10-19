@@ -88,11 +88,6 @@ object implicits {
       implicit val longScore: GetSizeScore[Long] = _ => 8
       implicit val stringScore: GetSizeScore[String] = string => 12 + 2 * string.length
 
-      implicit def packedMultiMapScore[K: GetSizeScore, V: GetSizeScore]
-        : GetSizeScore[PackedMultiMap[K, V]] =
-        (value: PackedMultiMap[K, V]) =>
-          value.inner.foldLeft(12)((acc, m) => acc + m._1.sizeScore + m._2.sizeScore)
-
       implicit def listSizeScore[T: GetSizeScore]: GetSizeScore[List[T]] =
         (value: List[T]) => {
           value.foldLeft(12)((acc, e) => acc + e.sizeScore)
@@ -106,6 +101,12 @@ object implicits {
       implicit def arraySizeScore[T: GetSizeScore]: GetSizeScore[Array[T]] =
         (value: Array[T]) => {
           value.foldLeft(12)((acc, e) => acc + e.sizeScore)
+        }
+
+      implicit def packedMultiMapScore[K: GetSizeScore, V: GetSizeScore]
+        : GetSizeScore[PackedMultiMap[K, V]] =
+        (value: PackedMultiMap[K, V]) => {
+          value.inner.foldLeft(12)((acc, m) => acc + m._1.sizeScore + m._2.sizeScore)
         }
 
       implicit def mapSizeScore[K: GetSizeScore, V: GetSizeScore]: GetSizeScore[Map[K, V]] =
@@ -159,7 +160,6 @@ object implicits {
 
         val map = new MutableBoundedCache[Long, Twit](maxSizeScore)
         override def put(twit: Twit): Unit = map.put(twit.id, twit)
-
         override def get(id: Long): Option[Twit] = map.get(id)
 
       }
