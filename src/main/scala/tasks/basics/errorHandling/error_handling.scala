@@ -43,7 +43,7 @@ object error_handling {
           case (16, '5')                         => Right(CardNumberType(cNumber, "MasterCard"))
           case (15, '3')                         => Right(CardNumberType(cNumber, "American Express"))
           case (13, '4') | (16, '4') | (19, '4') => Right(CardNumberType(cNumber, "Visa"))
-          case (16, '6') | (19, '6')             => Right(CardNumberType(cNumber, "Visa"))
+          case (16, '6') | (19, '6')             => Right(CardNumberType(cNumber, "Discovery"))
           case (_, _)                            => Left(ErrorMessage("Unsupported card type!"))
         }
     }
@@ -137,7 +137,7 @@ object error_handling {
 
     def validateType(numberType: CardNumberType): AllErrorsOr[CardNumberType] = {
 //      If card type is important
-      val supportedCards = List("Master", "Visa")
+      val supportedCards = List("MasterCard", "Visa")
       if (supportedCards.contains(numberType.cType)) numberType.validNec
       else UnsupportedCard.invalidNec
     }
