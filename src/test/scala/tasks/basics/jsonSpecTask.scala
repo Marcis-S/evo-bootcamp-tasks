@@ -59,8 +59,8 @@ class HomeworkSpec extends AnyWordSpec with Matchers with EitherValues {
 object HomeworkSpec {
 
   implicit val localDateDecoder: Decoder[LocalDate] =
-    Decoder.decodeString.emap(str =>
-      Try(LocalDate.parse(str, DateTimeFormatter.ofPattern("yyyyMMdd"))).toEither.leftMap(err =>
+    Decoder.decodeString.emap(date =>
+      Try(LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyyMMdd"))).toEither.leftMap(err =>
         "LocalDate" + err.getMessage
       )
     )
