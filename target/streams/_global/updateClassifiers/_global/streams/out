@@ -1,3 +1,4 @@
 [debug] "not up to date. inChanged = true, force = false
 [debug] Updating ProjectRef(uri("file:/home/marcis/IdeaProjects/evo_bootcamp_tasks/"), "evo_bootcamp_tasks")...
 [debug] Done updating ProjectRef(uri("file:/home/marcis/IdeaProjects/evo_bootcamp_tasks/"), "evo_bootcamp_tasks")
+[warn] There may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.
