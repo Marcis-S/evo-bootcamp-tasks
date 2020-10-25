@@ -3,6 +3,7 @@ package tasks.basics
 object AlgebraicDataTypes {
   def main(args: Array[String]): Unit = {}
 
+
   final case class ErrorMessage(value: String) { def message: String = f"Error: ${value}" }
 
   final case class Suit private (suitVal: Char) extends AnyVal
