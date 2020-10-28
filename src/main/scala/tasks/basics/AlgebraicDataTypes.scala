@@ -1,8 +1,9 @@
 package tasks.basics
 
+import scala.util.Try
+
 object AlgebraicDataTypes {
   def main(args: Array[String]): Unit = {}
-
 
   final case class ErrorMessage(value: String) { def message: String = f"Error: ${value}" }
 
