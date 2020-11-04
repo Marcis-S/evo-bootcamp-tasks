@@ -23,3 +23,4 @@ libraryDependencies ++= Seq(
 "org.scalatestplus" %% "scalatestplus-scalacheck" % "3.1.0.0-RC2" % Test
 
 )
+libraryDependencies += "org.scala-lang.modules" %% "scala-parallel-collections" % "0.2.0"
