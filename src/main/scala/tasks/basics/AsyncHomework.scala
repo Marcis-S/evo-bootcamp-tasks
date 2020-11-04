@@ -27,25 +27,22 @@ object AsyncHomework extends App {
 
   def linkServers(webPage: String): Unit = {
 
-    val urls = for {
-      body <- fetchPageBody(webPage)
-      urls <- findLinkUrls(body)
-    } yield urls
+    val servers = for {
+      body    <- fetchPageBody(webPage)
+      urls    <- findLinkUrls(body)
+      servers <- Future.sequence(urls.map(x => fetchServerName(x)))
+    } yield servers
 
-    urls.onComplete {
-      case Success(urls) =>
-        val servers = Future.sequence(urls.par.map(x => fetchServerName(x)).toList)
-        servers.onComplete {
-          case Success(value) =>
-            println(
-              value.distinct
-                .map(_.getOrElse(""))
-                .filter(_.nonEmpty)
-                .sortWith(_.toLowerCase < _.toLowerCase)
-            )
-          case Failure(exception) => println(exception.getCause)
-        }
+    servers.onComplete {
+      case Success(servers) =>
+        println(
+          servers.distinct
+            .map(_.getOrElse(""))
+            .filter(_.nonEmpty)
+            .sortWith(_.toLowerCase < _.toLowerCase)
+        )
       case Failure(exception) => println(exception.getCause)
+
     }
 
   }
