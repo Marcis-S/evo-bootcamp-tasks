@@ -24,3 +24,4 @@ libraryDependencies ++= Seq(
 
 )
 libraryDependencies += "org.scala-lang.modules" %% "scala-parallel-collections" % "0.2.0"
+libraryDependencies += "com.codecommit" %% "cats-effect-testing-scalatest" % "0.4.1" % Test
