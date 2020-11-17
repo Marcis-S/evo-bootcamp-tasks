@@ -6,39 +6,25 @@ import java.security.InvalidKeyException
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import org.scalatest.matchers.should.Matchers._
 import org.scalatest.flatspec.AnyFlatSpec
-import cats.effect.testing.scalatest.AsyncIOSpec
 import EffectsHomework1._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import scala.util
 import scala.util.{Failure, Success, Try}
 
 class EffectsHomework1Spec extends AnyFlatSpec with ScalaCheckDrivenPropertyChecks {
   "map" should "map to IO value and return IO" in {
-    for {
-      exp <- IO(1)
-      act <- IO(0).map(_ + 1)
-    } yield assert(exp == act)
 
-    for {
-      exp <- IO("1")
-      act <- IO(1).map(_.toString)
-    } yield assert(exp == act)
-
-    for {
-      exp <- IO(true)
-      act <- IO(1).map(_.isValidInt)
-    } yield assert(exp == act)
+    IO(0).map(_ + 1).unsafeRunSync() shouldEqual 1
+    IO(0).map(_.toString).unsafeRunSync() shouldEqual "0"
+    IO(0).map(_.isValidInt).unsafeRunSync() shouldEqual true
 
   }
-//TODO
-//  "flatMap" should "flatmap to IO value and return IO" in {
-//    for {
-//      exp <- IO("afs")
-//      act <- IO("af").flatMap(x => IO(x + "s"))
-//    } yield assert(exp == act)
-//  }
+
+  "flatMap" should "flatmap to IO value and return IO" in {
+    IO(1).flatMap(x => IO(x + 1)).unsafeRunSync() shouldEqual 2
+
+  }
 
   "*>" should "run new IO if previous is success" in {
 
