@@ -11,7 +11,6 @@ import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 import com.github.blemale.scaffeine.{Cache, Scaffeine}
 import scala.util.Random
-object httpHomework {}
 
 object HttpServer extends IOApp {
 
