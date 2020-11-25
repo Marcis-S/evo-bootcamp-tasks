@@ -5,7 +5,7 @@ services:
 #    restart: unless-stopped
     ports:
       - "25:25"
-      - "70:80"
+      - "80:80"
     volumes:
       - redis_data:/data/redis
 
