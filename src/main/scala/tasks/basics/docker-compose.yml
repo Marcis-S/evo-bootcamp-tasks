@@ -1,25 +1,16 @@
-version: "3.0"
+version: "3.8"
 services:
   redis:
     image: redis:latest
-#    restart: unless-stopped
+    restart: unless-stopped
     ports:
-      - "25:25"
-      - "80:80"
-    volumes:
-      - redis_data:/data/redis
+      - "6379:6379"
 
   mailcatcher:
     image: tophfr/mailcatcher:latest
     restart: unless-stopped
     ports:
-      - "6379:6379"
-    volumes:
-      - mailcatcher_data:/data/mailcatcher
-
-volumes:
-  redis_data:
-    external: false
-  mailcatcher_data:
-    external: false
+        - "25:25"
+        # Had to bind to different port as 80 was taken
+        - "70:80"
 
