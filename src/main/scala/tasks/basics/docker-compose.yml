@@ -1,0 +1,25 @@
+version: "3.0"
+services:
+  redis:
+    image: redis:latest
+#    restart: unless-stopped
+    ports:
+      - "25:25"
+      - "70:80"
+    volumes:
+      - redis_data:/data/redis
+
+  mailcatcher:
+    image: tophfr/mailcatcher:latest
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - mailcatcher_data:/data/mailcatcher
+
+volumes:
+  redis_data:
+    external: false
+  mailcatcher_data:
+    external: false
+

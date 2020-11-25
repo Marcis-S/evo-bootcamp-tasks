@@ -74,7 +74,6 @@ object HttpServer extends IOApp {
                   case _ =>
                     Ok(s"end")
                 }
-
               }
               case (`guess`, _) => {
                 cache.invalidate(name)
@@ -82,10 +81,8 @@ object HttpServer extends IOApp {
               }
               case (answ, _) => {
                 cache.put(name, GameOpt(gameOpt.answ, gameOpt.maxAtmpt - 1))
-                (answ > guess) match {
-                  case true  => Ok("<")
-                  case false => Ok(">")
-                }
+                if (answ > guess) { Ok("<") }
+                else { Ok(">") }
               }
 
             }
